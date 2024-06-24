@@ -1,8 +1,7 @@
-import { PostsRepository } from '../repositories/posts.repository.js';
-
 export class PostsService {
-  // PostsRepository 인스턴스화 시킨다.
-  postsRepository = new PostsRepository();
+  constructor(postsRepository) {
+    this.postsRepository = postsRepository;
+  }
 
   /* 게시글 조회 API */
   findAllPosts = async () => {

@@ -1,8 +1,7 @@
-import { PostsService } from '../services/posts.service.js';
-
 export class PostsController {
-  // PostsService 인스턴스화 시킨다.
-  postsService = new PostsService();
+  constructor(postsService) {
+    this.postsService = postsService;
+  }
 
   /* 게시글 조회 API */
   getPosts = async (req, res, next) => {
@@ -33,6 +32,9 @@ export class PostsController {
   createPost = async (req, res, next) => {
     try {
       const { nickname, password, title, content } = req.body;
+
+      if (!nickname || !password || !title || !content)
+        throw new Error('InvalidParamsError');
 
       const createdPost = await this.postsService.createPost(
         nickname,
